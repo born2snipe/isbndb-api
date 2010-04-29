@@ -13,11 +13,24 @@
 
 package isbndb;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 
 public class Book {
     private String isbn;
     private String isbn13;
     private String title;
+    private List<String> authors = new ArrayList();
+
+    public List<String> getAuthors() {
+        return Collections.unmodifiableList(authors);
+    }
+
+    public void addAuthor(String author) {
+        authors.add(author);
+    }
 
     public String getTitle() {
         return title;

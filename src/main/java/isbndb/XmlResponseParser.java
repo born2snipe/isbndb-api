@@ -13,10 +13,15 @@
 
 package isbndb;
 
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class XmlResponseParser implements ResponseParser {
@@ -33,12 +38,39 @@ public class XmlResponseParser implements ResponseParser {
         Book book = new Book();
         NodeList nodeList = document.getElementsByTagName("BookData");
         Node node = nodeList.item(0);
-        NamedNodeMap attributes = node.getAttributes();
         book.setIsbn(attribute(node, "isbn"));
         book.setIsbn13(attribute(node, "isbn13"));
         book.setTitle(child(node, "Title"));
+        for (String authorName : authors(node)) {
+            book.addAuthor(authorName);   
+        }
         return book;
     }
+
+    private List<String> authors(Node node) {
+        NodeList children = node.getChildNodes();
+        Node authorsNode = null;
+        for (int i = 0; i < children.getLength(); i++) {
+            Node child = children.item(i);
+            if ("Authors".equals(child.getNodeName())) {
+                authorsNode = child;
+                break;
+            }
+        }
+
+        List<String> authors = new ArrayList<String>();
+        if (authorsNode != null) {
+            NodeList authorChildren = authorsNode.getChildNodes();
+            for (int i = 0; i < authorChildren.getLength(); i++) {
+                Node child = authorChildren.item(i);
+                if ("Person".equals(child.getNodeName())) {
+                    authors.add(child.getFirstChild().getNodeValue());
+                }
+            }
+        }
+        return authors;
+    }
+
 
     private String attribute(Node node, String name) {
         return node.getAttributes().getNamedItem(name).getTextContent();

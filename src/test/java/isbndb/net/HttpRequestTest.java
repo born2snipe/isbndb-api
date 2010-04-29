@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class HttpRequestTest {
+
     @Test
     public void test_NoParameter() {
         HttpRequest request = new HttpRequest("http://www.google.com");

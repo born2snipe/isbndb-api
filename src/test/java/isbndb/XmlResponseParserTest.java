@@ -15,6 +15,8 @@ package isbndb;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 
@@ -24,13 +26,17 @@ public class XmlResponseParserTest {
     public void test() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "\n" +
-                "<ISBNdb server_time=\"2010-04-29T00:46:59Z\">\n" +
+                "<ISBNdb server_time=\"2010-04-29T01:46:57Z\">\n" +
                 "<BookList total_results=\"1\" page_size=\"10\" page_number=\"1\" shown_results=\"1\">\n" +
                 "<BookData book_id=\"programming_web_services_with_perl\" isbn=\"0596002068\" isbn13=\"9780596002060\">\n" +
                 "<Title>Programming Web services with Perl</Title>\n" +
                 "<TitleLong></TitleLong>\n" +
                 "<AuthorsText>Randy J. Ray and Pavel Kulchenko</AuthorsText>\n" +
                 "<PublisherText publisher_id=\"oreilly\">Farnham ; O'Reilly, 2002 printing, c2003.</PublisherText>\n" +
+                "<Authors>\n" +
+                "<Person person_id=\"ray_randy_j\">Ray, Randy J.</Person>\n" +
+                "<Person person_id=\"kulchenko_pavel\">Kulchenko, Pavel</Person>\n" +
+                "</Authors>\n" +
                 "</BookData>\n" +
                 "</BookList>\n" +
                 "</ISBNdb>";
@@ -43,5 +49,6 @@ public class XmlResponseParserTest {
         assertEquals("0596002068", book.getIsbn());
         assertEquals("9780596002060", book.getIsbn13());
         assertEquals("Programming Web services with Perl", book.getTitle());
+        assertEquals(Arrays.asList("Ray, Randy J.", "Kulchenko, Pavel"), book.getAuthors());
     }
 }

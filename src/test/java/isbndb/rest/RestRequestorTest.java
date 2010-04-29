@@ -59,6 +59,7 @@ public class RestRequestorTest {
         verify(httpRequest).addParameter("access_key", "access-key");
         verify(httpRequest).addParameter("index1", "isbn");
         verify(httpRequest).addParameter("value1", "data");
+        verify(httpRequest).addParameter("results", "authors");
     }
 
     @Before

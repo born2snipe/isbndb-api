@@ -30,6 +30,7 @@ public class RestRequestor implements Requestor {
         httpRequest.addParameter("access_key", request.accessKey);
         httpRequest.addParameter("index1", "isbn");
         httpRequest.addParameter("value1", request.data);
+        httpRequest.addParameter("results", "authors");
 
         HttpResponse httpResponse = httpRequest.doGet(false);
         if (!httpResponse.isSuccessful()) {
