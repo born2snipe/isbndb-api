@@ -18,4 +18,8 @@ public class IsbnDbException extends RuntimeException {
     public IsbnDbException(String message){
         super(message);
     }
+
+    public IsbnDbException(String message, Throwable cause){
+        super(message, cause);
+    }
 }

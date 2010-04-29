@@ -17,7 +17,7 @@ import isbndb.rest.RestRequestor;
 
 public class BookLookup {
     private Requestor requestor = new RestRequestor();
-    private ResponseParser responseParser;
+    private ResponseParser responseParser = new XmlResponseParser();
     private String accessKey;
 
     public Book byIsbn(String isbnNumber) {
